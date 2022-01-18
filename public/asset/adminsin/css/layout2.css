@@ -1,0 +1,127 @@
+
+.input_text {border:1px solid #cccccc;}
+.input_text_all {border:1px solid #f7f7f7; background:#f7f7f7;}
+
+#Contents {float: left;}
+
+	#Contents .boardUp {padding-left:10px; margin-bottom:10px; _margin-bottom:5px;}
+	#Contents .boardUp .search_bbs {float:right;}
+	#Contents .boardUp .search_bbs .search_bbs_title {display:inline; padding-right:7px;}
+	#Contents .boardUp .search_bbs img,
+	#Contents .boardUp .search_bbs input {vertical-align:middle;}
+	#Contents .boardUp .search_bbs img {_padding-bottom:1px;}
+
+/* 寃뚯떆�뙋 紐⑸줉 */
+.boardListSuch {}
+.boardListSuch table {width:100%; table-layout:fixed; border-collapse: collapse;}
+
+.boardListSuch thead {}
+.boardListSuch thead tr {}
+.boardListSuch thead tr th {font-weight:bold; color:#000000; height:30px;border-right:1px solid #d4d4d4;border-top:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4; }
+
+.boardListSuch tbody tr {}
+.boardListSuch tbody tr td {padding:6px 0; border-right:1px solid #d4d4d4;  border-top:1px solid #d4d4d4;  border-bottom:1px solid #d4d4d4;}
+.boardListSuch tbody tr td.td_end {border-right:none;}
+.boardListSuch tbody tr td p {text-align:left; padding-right:5px; color:#434343; line-height:130%;} 
+.boardListSuch tbody tr td p:hover {text-align:left;  color:#000000;}
+	.boardListSuch tbody tr td.num p {text-align:center;}
+	.boardListSuch tbody tr td.bank_name p {text-align:left; padding-left:10px;word-wrap:break-word;word-break:break-all}
+	.boardList tbody tr td.product p {text-align:left; padding-left:20px;}
+	.boardListSuch tbody tr td.fund_use p {text-align:left; padding-left:15px;word-wrap:break-word;word-break:break-all}
+	.boardListSuch tbody tr td.date p {text-align:center;}
+
+
+/* 寃뚯떆�뙋 紐⑸줉 */
+.boardList {margin-left:10px; }
+.boardList table {width:100%; table-layout:fixed; border-collapse: collapse;}
+
+.boardList thead {}
+.boardList thead tr {}
+.boardList thead tr th {font-weight:bold; color:#000000; height:30px;border-right:1px solid #d4d4d4;border-top:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4; }
+
+.boardList tbody tr {}
+.boardList tbody tr td {padding:6px 0; border-right:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4;}
+.boardList tbody tr td.td_end {border-right:none;}
+.boardList tbody tr td p {text-align:left; padding-right:5px; color:#434343; line-height:130%;} 
+.boardList tbody tr td p:hover {text-align:left;  color:#000000;}
+	.boardList tbody tr td.num p {text-align:center;}
+	.boardList tbody tr td.bank_name p {text-align:left; padding-left:10px;word-wrap:break-word;word-break:break-all}
+	.boardList tbody tr td.product p {text-align:left; padding-left:20px;}
+	.boardList tbody tr td.fund_use p {text-align:left; padding-left:15px;word-wrap:break-word;word-break:break-all}
+	.boardList tbody tr td.date p {text-align:center;}
+
+/* 寃뚯떆�뙋 �벐湲� */
+.boardWrite {margin-left:10px;}
+.boardWrite table { border-collapse: collapse;}
+
+.boardWrite thead {}
+.boardWrite thead tr {}
+.boardWrite thead tr th {font-weight:bold; color:#000000; height:33px; _height:34px; text-align:left; padding-left:20px; }
+
+.boardWrite tbody tr { border-top:1px solid #d4d4d4; }
+.boardWrite tbody tr th {padding:9px 0; _padding:8px 0; text-align:left; border-right:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4;}
+.boardWrite tbody tr th p {color:#000; font-weight:bold; padding-left:20px;}
+.boardWrite tbody tr td {padding:5px 0; border-bottom:1px solid #d4d4d4;}
+.boardWrite tbody tr td p {color:#696969; padding-left:10px;}
+.boardWrite tbody tr td p.write_memo {padding-top:10px; padding-bottom:10px;}
+.boardWrite tbody tr td p.fileyoWrap {padding-top:5px;}
+.boardWrite tbody tr td p.fileyo {padding-bottom:5px;}
+
+/* 寃뚯떆�뙋 �씫湲� */
+.boardView {margin-left:10px;}
+.boardView table { border-collapse: collapse;}
+
+.boardView thead {}
+.boardView thead tr {}
+.boardView thead tr th {font-weight:bold; color:#000000; height:33px; _height:34px; text-align:left; padding-left:20px; }
+
+.boardView tbody tr { border-top:1px solid #d4d4d4; }
+.boardView tbody tr th {padding:9px 0; _padding:8px 0; text-align:left; border-right:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4;}
+.boardView tbody tr th p {color:#000; font-weight:bold; padding-left:20px;}
+.boardView tbody tr td {padding:5px 0; border-bottom:1px solid #d4d4d4;}
+.boardView tbody tr td p {color:#696969; padding-left:10px;}
+.boardView tbody tr td p.write_memo {padding-top:10px; padding-bottom:10px;}
+.boardView tbody tr td p.fileyoWrap {padding-top:5px;}
+.boardView tbody tr td p.fileyo {padding-bottom:5px;}
+
+
+/* 寃뚯떆�뙋 �씫湲� */
+/*
+.boardView {margin-left:10px; border-top:1px solid #d4d4d4;}
+.boardView table {width:100%; border-collapse: collapse;}
+
+.boardView tbody tr {}
+.boardView tbody tr th {padding:9px 0; text-align:left; border-right:1px solid #d4d4d4; border-bottom:1px solid #d4d4d4; background:#f6f6e7;}
+.boardView tbody tr th p {color:#666666; font-weight:normal; padding-left:20px;}
+.boardView tbody tr td {padding:10px 0; border-bottom:1px solid #d4d4d4; line-height:130%;}
+.boardView tbody tr td.td2 {border-right:1px solid #d4d4d4;}
+.boardView tbody tr td div {color:#696969; padding-left:10px;}
+*/
+#Foorer {position:relative; margin:0 auto; margin-top:50px; height:104px; padding:11px 0 0 280px; background:url('../img/g/footer_bg.gif') repeat-x 0 0;}
+#Foorer .footer_logo {position:absolute; top:23px; left:138px;}
+#Foorer .footer_link {float:left; margin-left:17px; _margin-left:8px;}
+#Foorer .footer_link li {float:left; padding:22px 25px; background:url('../img/g/footer_sai.gif') no-repeat right 50%;}
+#Foorer .footer_link li.end {background:none;}
+#Foorer address {float:left; font-style:normal; width:690px;}
+
+.Btn {overflow:hidden;}
+.BtnWrite {margin-top:10px; text-align:right;}
+.BtnView {margin-top:30px; text-align:right;}
+.BtnViewUp {border:1px solid red; float:right;}
+	.BtnView span {padding-left:10px; margin-right:15px;}
+	.BtnView span.span_end {margin-right:0;}
+	.BtnView span a {color:#289a14;}
+	.BtnView span a:hover {color:#289a14;}
+	.BtnView .boardup_icon_my {background:url('../img/bbs/boardup_icon_my.gif') no-repeat 0 50%;}
+	.BtnView .boardup_icon_list {background:url('../img/bbs/boardup_icon_list.gif') no-repeat 0 50%;}
+	.BtnView .boardup_icon_print {padding-left:15px; background:url('../img/bbs/boardup_icon_print.gif') no-repeat 0 50%;}
+
+.BoardViewUp {}
+.BoardViewUp .BoardViewUpBtn {float:right; padding-top:6px;}
+	.BoardViewUp span {padding-left:10px; margin-right:15px;}
+	.BoardViewUp span.span_end {margin-right:0;}
+	.BoardViewUp span a {color:#289a14;}
+	.BoardViewUp span a:hover {color:#289a14;}
+	.BoardViewUp .boardup_icon_my {background:url('../img/bbs/boardup_icon_my.gif') no-repeat 0 50%;}
+	.BoardViewUp .boardup_icon_list {background:url('../img/bbs/boardup_icon_list.gif') no-repeat 0 50%;}
+	.BoardViewUp .boardup_icon_print {padding-left:15px; background:url('../img/bbs/boardup_icon_print.gif') no-repeat 0 50%;}

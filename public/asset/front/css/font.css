@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+@font-face {
+ font-family: 'Hana';
+ font-weight: 400;
+ src: url(/asset/front/fonts/HanaM.woff) format('woff');
+}
+@font-face {
+ font-family: 'Hana';
+ font-weight: 600;
+ src: url(/asset/front/fonts/HanaB.woff) format('woff');
+}
+@font-face {
+ font-family: 'HanaGothicPro';
+ font-weight: 100;
+ src: url(/asset/front/fonts/HanaGothicPro40.woff) format('woff');
+}
+@font-face {
+ font-family: 'HanaGothicPro';
+ font-weight: 400;
+ src: url(/asset/front/fonts/HanaGothicPro70.woff) format('woff');
+}
+@font-face {
+ font-family: 'HanaGothicPro';
+ font-weight: 600;
+ src: url(/asset/front/fonts/HanaGothicPro80.woff) format('woff');
+}

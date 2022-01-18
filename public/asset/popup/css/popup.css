@@ -1,0 +1,21 @@
+/* 수료증 공유 팝업 */
+#layer-mask {position: fixed; width: 100%; height: 100vh; left: 0;top: 0; z-index: 200; background: rgba(0, 0, 0, 0.6)}
+#pop {position: fixed; width: 420px; left: 50%; top:50%; transform: translate(-50%,-50%); z-index: 1000;background: #fff2f2; padding: 15px 25px 30px; box-sizing: border-box; border-radius: 20px; border: 2px solid #000; display: none}
+#pop .close {width: 22px; float: right; margin-right: -10px;}
+#pop .close img {width: 100%;}
+#pop .popInner img {width: 100%}
+#pop .popInner .button {position: absolute; left: 50%; transform: translateX(-50%); bottom: 18.6%; width: 50%}
+#pop .popInner .snsTit {width:37%;margin:20px auto 0;}
+#pop .popInner .sns {width: 45%; display: flex; margin:20px auto 0;}
+#pop .popInner .sns li {margin: 0 10px}
+
+
+/* 제출하기 팝업 */
+/* popup */
+#layer-mask {position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000;}
+.layer-popup {position: fixed; width: 550px; height: 800px; left: 50%; top: 30%; margin-left: -225px;background: #ffffff;letter-spacing: -1px; z-index: 1001; display: none;}
+
+/* popup 사이즈 */
+.layer-popup {width: 550px; height: 900px; font-family: 'Noto Sans KR', sans-serif;}
+.layer-popup.b {width:450px; height: 300px;  font-family: 'Noto Sans KR', sans-serif;}
+.tit2 {    padding: 10px 20px 0px;margin:20px auto 10px;font-weight: bold;}

@@ -1,0 +1,155 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+
+/* reset */
+*, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
+a {color: inherit; text-decoration: inherit;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+button {background: none; border: none; cursor: pointer;}
+img {vertical-align: middle;}
+input, textarea, select{-webkit-appearance: none; -webkit-border-radius: 0;}
+select::-ms-expand {display:none}
+br.mo {display: none;}
+
+/* LayOut */
+#wrap {position:relative; width:100%; margin:0 auto; font-family: 'Noto Sans KR', sans-serif; color: #000; font-size: 14px; overflow: hidden;}
+#wrap .inner {width: 1080px; margin: 0 auto;}
+
+/* header */
+header {height: 90px; line-height: 90px}
+header .logo {float: left}
+header .gnb {float: right; display: flex}
+header .gnb li {margin: 0 30px;}
+header .gnb li a {display: block; font-weight: 400; font-size: 18px;}
+
+/* visual */
+.visual {padding: 65px 0; background: #ecfffa; text-align: center}
+.visual h1 {font-size: 45px; font-weight: 400; color: #000; letter-spacing: 1px;font-family: 'Hana'; }
+.visual h1 b{font-size: 63px; display: block; margin-top: 20px}
+.visual h1 span {color: #00a9a2; font-weight: 600;}
+#wrap .visual .inner {margin: 30px auto}
+.visual h2 {margin-bottom: 20px}
+.visual p {font-size: 12px; color:  #b5b5b5;}
+.visual .ani {position: relative; height: 600px; background:url(/asset/front/img/land/visual_bg.png) no-repeat center/500px}
+.visual .ani .phone {position: absolute; left: 300px; top: 0}
+.visual .ani .vlogo {position: absolute; left: 50%; transform: translateX(-50%);top: 120px; z-index: 10;}
+.visual .ani a {position: absolute; left: 50%; transform: translateX(-50%);top: 445px}
+.visual .ani a.a {top: 379px}
+.visual .ani ul {position: absolute; display: flex; width: 650px; flex-wrap: wrap; right: -40px; top: 165px;}
+.visual .ani ul li {opacity:0; width: 20%; position: absolute; animation: li 3.5s infinite}
+.visual .ani ul li img {width: 100%}
+.visual .ani ul li:nth-child(1) { animation: li1 3s infinite}
+.visual .ani ul li:nth-child(2) { animation: li2 3s infinite}
+.visual .ani ul li:nth-child(3) { animation: li3 3s infinite}
+.visual .ani ul li:nth-child(4) { animation: li4 3s infinite}
+.visual .ani ul li:nth-child(5) { animation: li5 3s infinite}
+
+@keyframes li1 { 0% {opacity: 0;left:69.2%;} 20%{opacity: 1; left: 34%} 50% {left:34%; opacity: 1} 70% {left:0%; opacity: 0}100% {left: 0%; opacity: 0} }
+@keyframes li2 { 0% {opacity: 0;left:69.2%;} 20%{opacity: 1; left: 51.5%} 50% {left:51.5%; opacity: 1} 70% {left:0%; opacity: 0}100% {left: 0%; opacity: 0} }
+@keyframes li3 { 0% {opacity: 0;left:69.2%;} 20%{opacity: 1; left: 69.2%} 50% {left:69.2%; opacity: 1} 70% {left:0%; opacity: 1}100% {left: 0%; opacity: 0} }
+@keyframes li4 { 0% {opacity: 0;left:69.2%;} 20%{opacity: 1; left: 86.7%} 50% {left:86.7%; opacity: 1} 70% {left:0%; opacity: 0}100% {left: 0%; opacity: 0} }
+@keyframes li5 { 0% {opacity: 0;left:69.2%;} 20%{opacity: 1; left: 104.2%} 50% {left:104.2%; opacity: 1} 70% {left:0%; opacity: 0}100% {left: 0%; opacity: 0} }
+
+/* quikMenu */
+.quikMenu { background: #ecfffa;display: flex; justify-content: space-between}
+.quikMenu li {width: 50%; background: #00a9a2; text-align: right;  padding: 30px 120px 30px 0; border-radius: 0 30px 0 0; cursor: pointer}
+.quikMenu li:nth-child(2){text-align: left;  padding: 30px 0 30px 120px; border-radius: 30px 0 0 0 ; background: #e83c5e}
+
+/* con */
+.con {padding: 100px 0 30px}
+.con .inner {display: flex; justify-content: space-between;}
+.con .inner .textBox {width: 50%; margin-top: 140px; position: relative; z-index: 30}
+.con .textBox h2{font-size:32px; font-weight: 400; color: #000; line-height: 1.2; margin-bottom: 32px;font-family: 'Hana'; }
+.con .textBox h2 b {font-weight: 600; color: #00a9a2; font-size: 46px; display: block; margin-top: 15px}
+.con .textBox p{font-size:24px; font-weight: 300;  color: #333333; line-height: 1.3;}
+.con .textBox p b {font-weight: 600;}
+.con .inner .imgBox {width: 50%; }
+
+/* con.a */
+.con.a {background: #00a9a2}
+.con.a .textBox {width: 50%; margin-top: 110px;}
+.con.a .textBox h2{font-size:45px; font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 30px;}
+.con.a .textBox h2 b {font-weight: 600; color: #d5fff4; font-size: 80px; margin-top: 0}
+.con.a .textBox p{font-size:29px; font-weight: 200; color: #fff; line-height: 1.3}
+.con.a .textBox p b {font-weight: 600; color: #fff}
+/*.con .inner {background: red}*/
+.con .inner .imgBox {position: relative;}
+.con .inner .imgBox ul {position: absolute; right: -10px; top: 50px;width: 60%}
+.con .inner .imgBox ul li img {width: 100%}
+
+/* con.b */
+.con.b {background: #e4f2ef;}
+.con.b .imgBox {position: relative; width: 381px; margin-left: -5% ;}
+.con.b .imgBox:before {content: '';position: absolute; width: 75%;height: 554px; left: 25.6%; top: -1%; background: url(/asset/front/img/land/ph_line.png) no-repeat center/99%; z-index: 20;}
+.con.b .imgBox:after {content: '';position: absolute; width: 75%;height: 554px; right: -75%; top: -1%; background:#e4f2ef; z-index: 20;}
+.con.b .imgBox > img {width: 100%}
+.con.b .imgBox .ui {position: absolute; width: 71.1%; left: 27.6%; top: 1.4%}
+.con.b .imgBox .ui span {width: 100%;}
+.con.b .imgBox .ui span img {width: 100%}
+.con.b .imgBox ul {position: absolute; width: 71.1%; left: 27.6%; top: 1.4%;}
+.con.b .imgBox ul li {position: absolute; right: -110%; top: 0; opacity: 0; width: 100%}
+.con.b .imgBox ul li img {width: 100%;}
+.con.b .imgBox ul li  span {transform: translateY(30px); opacity: 0;z-index: 30;}
+.con.b .imgBox ul li:nth-child(1) span {position: absolute; right: -40%; top:18%;  width: 80%;}
+.con.b .imgBox ul li:nth-child(2) span {position: absolute; right: -40%; top: 54%;  width: 80%;}
+.con.b .imgBox ul li:nth-child(3) span {position: absolute; left: -44%; top: 21.5%;  width: 93%;}
+.con.b .imgBox ul li.on {opacity: 1; right: 0; transition: 0.8s}
+.con.b .imgBox ul li.on span {transform: translateY(0); opacity: 1; transition: 1s; transition-delay: 0.8s}
+
+/* con.c */
+.con.c {background: #fafafa;padding: 100px 0}
+.con.c .inner {justify-content:flex-start}
+.con.c .imgBox {position: relative; width: 291px; overflow: hidden; border-radius: 40px 40px 52px 52px; box-shadow: -20px 20px 50px rgba(7, 7, 7, 0.25);margin-left: 10%}
+.con.c .imgBox:before {content: '';position: absolute; width: 108%;height: 570px; left:-4%; top: 0%; background: url(/asset/front/img/land/ph_line.png) no-repeat center/contain; z-index: 30;}
+.con.c .imgBox > img {width: 100%}
+.con.c .imgBox .ui {position: absolute; width: 94%; left:3%; top: 2.45%}
+.con.c .imgBox .ui span {width: 100%;}
+.con.c .imgBox .ui span img {width: 100%}
+.con.c .imgBox ul {position: absolute; width: 94%; left:3%; top: 2.5%;}
+.con.c .imgBox ul li {position: absolute; right: -110%; top: 0; opacity: 0; width: 100%}
+.con.c .imgBox ul li img {width: 100%;}
+.con.c .imgBox ul li.on {opacity: 1; right: 0; transition: 0.8s}
+
+/* con.d */
+.con.d {background: #e4f2ef;padding: 100px 0;}
+.con.d .inner {text-align: center;display: block}
+
+/* con.e */
+.con.e {background: #fff; padding: 100px 0;}
+.con.e .inner {display: block}
+.con.e h2 {text-align: center; margin-bottom: 50px; font-size: 40px;font-family: 'Hana';}
+.con.e p { width: 1080px; border: 2px solid #cbe5de; border-radius: 60px; text-align: center; padding: 100px 0; margin-top: 10px; display: block}
+.con.e p a {display: block; margin-top:50px}
+
+/* con.f */
+.con.f {background: #fff; padding: 50px 0;}
+.con.f .inner {display: block}
+.con.f h2 {font-family: 'Hana';font-size: 22px; position: relative; border-top: 2px solid #000;border-bottom: 1px solid #ccc;  height: 70px; line-height: 70px; cursor: pointer; padding: 0 20px}
+.con.f h2:after {content: ''; width: 20px; height: 10px; background:  url(/asset/front/img/land/arrow.png); position: absolute;  right: 20px; top: 32px; }
+.con.f h2.on:after {transform: rotate(180deg)}
+.con.f p {background: #fff;  font-weight: 400; font-size: 14px; color: #999; padding: 30px; display: none;border-bottom: 1px solid #ccc;}
+
+/* footer */
+footer {text-align: center; color: #00a9a2; border-top: 2px solid #00a9a2; padding: 18px 0; font-size: 16px; font-weight: 100;}
+
+/* fix */
+.fix {width: 55px; position: fixed; bottom: 70px; right: 20px;z-index: 9999; opacity: 0; transition: all .2s;}
+.fix a {display: block; width: 100%;}
+.fix a img {width:100%}
+.fix.on {opacity: 1;transition: all .3s;}
+
+/* con.g - FAQ */
+.con.g {padding:0 0 50px}
+.con.g h2 {text-align: center; margin-bottom: 50px; font-size: 40px;font-family: 'Hana';}
+.faq_area{width:1080px;margin:0 auto;padding:100px 0 200px;}
+.faq_area .faq_list{border-top:1px solid #ebebeb;}
+.faq_area .faq_list > li{border-bottom:1px solid #ebebeb;}
+.faq_area .open_btn{position: absolute; text-indent: -99999px;  display: block; right: 0; top: 50%; transform: translateY(-50%);width: 20px; height: 10px;}
+.faq_area .open_btn:after {content: ''; width: 20px; height: 10px; background:  url(/asset/front/img/land/arrow.png); position: absolute;  right: 0%; top: 0%; }
+.faq_area .faq_list li .faq_q{position:relative;font-size:20px;line-height:28px;padding:32px 60px;}
+.faq_area .faq_list li .faq_q span{position:absolute;top:30px;left:0;}
+.faq_area .faq_list li .faq_a{display:none;background:#f5f7fa;padding:45px 60px;font-size:16px;line-height:28px;}
+.faq_area .faq_list li .faq_a > li{border:none;}
+.faq_area .faq_list li.on{border-bottom:none;}
+.faq_area .faq_list li.on .open_btn:after {transform: rotate(180deg)}

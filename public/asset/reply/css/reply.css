@@ -1,0 +1,69 @@
+
+#comments-area{
+     margin-left: -30px;
+     padding-left: 50px;
+     width: 1000px;
+}
+
+#comment-list{
+     font-size: 20px;
+     font-weight: bold;
+     margin-top : 2em;
+     margin-bottom : 1em;
+     padding-bottom: 1em;
+     border-bottom: solid 1px gray;
+}
+
+
+#comment-input{
+   width: 800px;
+} 
+
+.comment-name{
+     font-weight: bold;
+     font-size: 13px;
+     
+}
+
+#submit{
+     width: 4em; 
+     height: 1.em; 
+     font-size: 17px; 
+     font-weight: bold; 
+     color: aliceblue; 
+} 
+
+
+
+.eachComment{
+     font-size: 1.2em; 
+     margin-bottom: 0.3em; 
+     display: flex; 
+     color: slategrey;
+
+} 
+
+.eachComment .inputValue{
+     font-size: 1.2em; 
+     font-style: italic; 
+} 
+
+.time{
+     font-size: 0.7em; 
+     color: #858483; 
+     font-style: oblique; 
+     margin-top: 0.5em; 
+     margin-bottom: 0.5em; 
+} 
+
+
+.eachComment .deleteComment{
+     background-color: red; 
+     color: aliceblue; 
+}
+
+.comment-menu{
+     border-bottom: solid 1px gray;
+     margin-bottom: 1em;
+}
+

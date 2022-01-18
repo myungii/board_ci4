@@ -1,0 +1,141 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+
+/* reset */
+*, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
+a {color: inherit; text-decoration: inherit;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+button {background: none; border: none; cursor: pointer;}
+img {vertical-align: middle;}
+input, textarea, select{-webkit-appearance: none; -webkit-border-radius: 0;}
+select::-ms-expand {display:none}
+br.mo {display: none;}
+
+/* LayOut */
+#wrap {position:relative; width:100%; margin:0 auto; font-family: 'Noto Sans KR', sans-serif; color: #000; font-size: 14px; overflow: hidden;}
+#wrap .inner {width: 100%; margin: 0 auto;}
+
+/* header */
+header {height: 50px; line-height: 50px; padding: 0 2.5%;}
+header .logo {float: left; width: 15%;}
+header .logo img {width: 100%}
+header .gnb {float: right; display: flex}
+header .gnb li {margin: 0 15px;}
+header .gnb li a {display: block; font-weight: 400; font-size: 14px;}
+
+/* visual */
+.visual {background: #ecfffa; padding: 0 0 10%; text-align: center; position: relative}
+.visual p {font-size: 10px; color:  #b5b5b5; width: 90%; margin: 20px auto 0}
+.visual .ani img {width: 100%;}
+#wrap .visual .ani {position: absolute; left: 50%; top: 24.4%; transform: translateX(-50%);width: 56%;}
+.visual .ani .phone {margin-left: -13.4%; width: 100%; display: block}
+.visual .ani .vlogo {position: absolute; left: 50%; transform: translateX(-50%);top: 22%; z-index: 10; width: 65%; display: block}
+.visual .ani a {position: absolute; left: 50%; transform: translateX(-50%);top: 75%; width:62%}
+.visual .ani a.a {top: 64%}
+.visual .ani ul {position: absolute; display: flex; width: 200%; flex-wrap: wrap; right: -120%; top: 30%;}
+.visual .ani ul li {opacity:0; width: 20%; position: absolute; animation: li 3s infinite}
+.visual .ani ul li img {width: 100%}
+.visual .ani ul li:nth-child(1) { animation: li1 3s infinite}
+.visual .ani ul li:nth-child(2) { animation: li2 3s infinite}
+.visual .ani ul li:nth-child(3) { animation: li3 3s infinite}
+.visual .ani ul li:nth-child(4) { animation: li4 3s infinite}
+.visual .ani ul li:nth-child(5) { animation: li5 3s infinite}
+
+@keyframes li1 { 0% {opacity: 0;} 30%{opacity: 1; left: 34%} 45% {left:34%; opacity: 1} 65% {left:0%; opacity: 0.8}100% {left: 0%; opacity: 0} }
+@keyframes li2 { 0% {opacity: 0;} 30%{opacity: 1; left: 51.5%} 45% {left:51.5%; opacity: 1} 70% {left:0%; opacity: 0.8}100% {left: 0%; opacity: 0} }
+@keyframes li3 { 0% {opacity: 0;} 30%{opacity: 1; left: 69.2%} 45% {left:69.2%; opacity: 1} 75% {left:0%; opacity: 0.8}100% {left: 0%; opacity: 0} }
+@keyframes li4 { 0% {opacity: 0;} 30%{opacity: 1; left: 86.7%} 45% {left:86.7%; opacity: 1} 80% {left:0%; opacity: 0.8}100% {left: 0%; opacity: 0} }
+@keyframes li5 { 0% {opacity: 0;} 30%{opacity: 1; left: 104.2%} 45% {left:104.2%; opacity: 1} 84% {left:0%; opacity: 0.8}100% {left: 0%; opacity: 0} }
+
+/* quikMenu */
+.quikMenu {background: #ecfffa; display: flex; justify-content: space-between}
+.quikMenu li {width: 50%;}
+.quikMenu li img {width: 100%;}
+
+/* con */
+.con {padding: 10% 0 0}
+.con .inner .textBox {width: 72%;margin: 0 auto}
+.con .inner .textBox img{width: 100%}
+.con .inner .imgBox {width: 72%; margin: 30px auto 0}
+.con .inner .imgBox > img {width: 100%; margin-left: -11%}
+
+/* con.a */
+.con.a {background: #00a9a2}
+.con.a .textBox {width: 58%}
+.con.a .inner .imgBox {position: relative;}
+.con.a .inner .imgBox ul {position: absolute; right:-15%; top: 17%; width: 75%}
+.con.a .inner .imgBox ul li img {width: 100%}
+
+/* con.b */
+.con.b {background: #e4f2ef;}
+.con.b .imgBox {position: relative;}
+
+.con.b .imgBox:before {content: '';position: absolute; width: 75%;height: 100%; left: 14.6%; top: -4.5%; background: url(/asset/mob/img/land/ph_line.png) no-repeat center/99%; z-index: 20;}
+.con.b .imgBox:after {content: '';position: absolute; width: 75%;height: 100%; right: -64.2%; top: -4.5%; background:#e4f2ef; z-index: 20;}
+.con.b .imgBox > img {width: 100%}
+.con.b .imgBox .ui {position: absolute; width: 71.1%; left: 16.6%; top: 1.4%;}
+.con.b .imgBox .ui span {width: 100%;}
+.con.b .imgBox .ui span img {width: 100%}
+.con.b .imgBox ul {position: absolute; width: 71.1%; left: 16.6%; top: 1.4%; }
+.con.b .imgBox ul li {position: absolute; right: -110%; top: 0; opacity: 0; width: 100%}
+.con.b .imgBox ul li img {width: 100%;}
+.con.b .imgBox ul li  span {transform: translateY(30px); opacity: 0;z-index: 30;}
+.con.b .imgBox ul li:nth-child(1) span {position: absolute; right: -40%; top:18%;  width: 80%;}
+.con.b .imgBox ul li:nth-child(2) span {position: absolute; right: -40%; top: 54%;  width: 80%;}
+.con.b .imgBox ul li:nth-child(3) span {position: absolute; left: -44%; top: 21.5%;  width: 93%;}
+.con.b .imgBox ul li.on {opacity: 1; right: 0%;  -webkit-transition:  all 0.8s}
+.con.b .imgBox ul li.on span {transform: translateY(0); opacity: 1;  -webkit-transition: all 1s; transition-delay: 0.8s}
+
+/* con.c */
+.con.c {background: #fafafa; padding: 10% 0}
+.con.c .inner {justify-content:flex-start}
+.con.c .imgBox > img  {opacity: 0}
+.con.c .imgBox {position: relative; border-radius:20%; box-shadow: -20px 20px 50px rgba(7, 7, 7, 0.25);width: 56%}
+.con.c .imgBox:before {content: '';position: absolute; width: 108%;height: 100%; left:-4.2%; top: 0.5%; background: url(/asset/mob/img/land/ph_line.png) no-repeat center/contain; z-index: 30;}
+.con.c .imgBox:after {content: '';position: absolute; width: 75%;height: 100%; right: -71.2%; top: -0%; background:#fafafa; z-index: 20;}
+.con.c .imgBox > img {width: 100%}
+.con.c .imgBox .ui {position: absolute; width: 94.1%; left:3%; top: 2.49%}
+.con.c .imgBox .ui span {width: 100%;}
+.con.c .imgBox .ui span img {width: 100%}
+.con.c .imgBox ul {position: absolute; width: 94.2%; left:3%; top: 2.5%;}
+.con.c .imgBox ul li {position: absolute; right: -110%; top: 0; opacity: 0; width: 100%}
+.con.c .imgBox ul li img {width: 100%;}
+.con.c .imgBox ul li.on {opacity: 1; right: 0%; -webkit-transition:  all  0.8s}
+
+/* con.d */
+.con.d {padding: 0;}
+
+
+/* con.e */
+.con.e {background: #fff; }
+#wrap .con.e .inner {display: block; width: 90%}
+.con.e h2 {text-align: center; margin-bottom: 10%; font-size: 28px;font-family: 'Hana';}
+.con.e p { margin-top: 10px; display: block; position: relative}
+.con.e p a {display: block;position: absolute; left: 50%; transform: translateX(-50%); bottom:4%; width: 90%}
+
+/* con.f */
+.con.f {background: #fff; width: 90%; margin: 0 auto 0}
+.con.f .inner {display: block}
+.con.f h2 {font-family: 'Hana';font-size: 17px; position: relative; border-top: 2px solid #000;border-bottom: 1px solid #ccc;  height: 50px; line-height: 50px; cursor: pointer; padding: 0 10px}
+.con.f h2:after {content: ''; width: 15px; height: 8px; background:  url(/asset/mob/img/land/arrow.png) no-repeat; background-size: 15px;  position: absolute;  right: 10px; top: 40%;}
+.con.f h2.on:after {transform: rotate(180deg)}
+.con.f p {background: #fff;  font-weight: 400; font-size: 10px; color: #999; padding: 5%; display: none;border-bottom: 1px solid #ccc;}
+
+/* footer */
+footer {text-align: center; color: #00a9a2; border-top: 2px solid #00a9a2; padding: 15px 0; font-size: 12px; font-weight: 100;}
+
+/* con.g - FAQ */
+.con.g {padding: 10% 0 20%}
+.con.g h2 {text-align: center; margin-bottom: 20px; font-size: 28px;font-family: 'Hana';}
+.faq_area{width:90%;margin:0 auto;padding:5% 0;}
+.faq_area .faq_list{border-top:1px solid #ebebeb;}
+.faq_area .faq_list > li{border-bottom:1px solid #ebebeb;}
+.faq_area .open_btn{position: absolute; text-indent: -99999px;  display: block; right: 0; top: 50%; transform: translateY(-50%);width: 12px; height: 6px;}
+.faq_area .open_btn:after {content: ''; width: 12px; height: 6px; background:  url(/asset/mob/img/land/arrow.png); background-size: 12px; position: absolute;  right: 0%; top: 0%; }
+.faq_area .faq_list li .faq_q{position:relative;font-size:13px;line-height:1.4;padding:10px 8% 10px 2.5%;}
+.faq_area .faq_list li .faq_q span{position:absolute;top:30px;left:0; display:none}
+.faq_area .faq_list li .faq_a{display:none;background:#f5f7fa;padding:20px;font-size:12px;line-height:28px;}
+.faq_area .faq_list li .faq_a > li{border:none;}
+.faq_area .faq_list li.on{border-bottom:none;}
+.faq_area .faq_list li.on .open_btn:after {transform: rotate(180deg)}

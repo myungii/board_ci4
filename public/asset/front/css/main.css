@@ -1,0 +1,75 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+
+/* reset */
+*, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
+a {color: inherit; text-decoration: inherit;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+button {background: none; border: none; cursor: pointer;}
+img {vertical-align: middle;}
+input, textarea, select{-webkit-appearance: none; -webkit-border-radius: 0;}
+select::-ms-expand {display:none}
+br.mo {display: none;}
+
+/* main - 경품선택 페이지 */
+#main {position:relative; width:100%; margin:0 auto; font-family: 'Noto Sans KR', sans-serif; text-align: center}
+.radio {display: flex; flex-wrap: wrap; width: 89%; margin: 0 auto 20px; justify-content: space-between}
+.radio li {width: 48.5%; position: relative; margin-bottom: 2.5%}
+.radio li img {width: 100%}
+.radio li input[type="radio"] + label span{position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%)}
+#main p {margin-bottom: 30px;}
+
+/* radio */
+input[type="radio"] {display:none;}
+input[type="radio"] + label {display: block; position: relative; z-index: 2;}
+input[type="radio"] + label span {display:inline-block;width:32px; height:32px; vertical-align:middle; background: url(../img/radio_1.png)  no-repeat center/cover; cursor:pointer;}
+input[type="radio"]:checked + label span {background: #fff url(../img/12_img/radio_2.png)  no-repeat center/cover;}
+
+/* sub - 고객정보입력 페이지 */
+#sub {position:relative; width:100%; margin:0 auto;     font-family: 'Noto Sans KR', sans-serif;letter-spacing: -1px; color: #1a1a1a}
+#sub .title {width: 90%; padding: 30px 0 20px; margin: 0 auto 30px; border-bottom: 3px solid #000; line-height: 1.3; font-size: 32px;font-family: 'Hana';}
+#sub .title span {color: #00a9a2}
+#sub .formBox {width: 90%; margin: 0 auto}
+#sub .formBox h2 {font-weight: normal; font-size: 17px; margin: 20px 0 10px}
+#sub .formBox h2 span {font-size: 14px; vertical-align: top;color: #00a9a2}
+#sub .formBox h2 b {color: #00a9a2}
+#sub .formBox h2.b {font-size: 12px;color: #949494; font-weight: 400;}
+#sub .formBox .text {background: #fff; border: 1px solid #e8e8e8; padding: 10px; font-size: 12px; line-height: 1.4; height: 80px; overflow: auto; color: #bcbcbc}
+#sub .notice {width: 90%; margin: 30px auto 0; font-family: 'Noto Sans KR', sans-serif;}
+#sub .notice .nbtn {color: #111;font-weight: normal;border-top: 2px solid #e8e8e8; border-bottom: 2px solid #e8e8e8;font-size: 16px; height: 47px; line-height: 45px; padding: 0 2px ; display: block; width: 100%; text-align: left;font-family: 'Noto Sans KR', sans-serif;}
+#sub .notice .nbtn img {width: 18px; float: right; margin-top: 17px;}
+#sub .notice .text {display: none; border-bottom: 2px solid #e8e8e8; padding: 20px 0; font-size: 12px; line-height: 1.4;  color: #868686}
+#sub .btn {width: 92%; margin: 50px auto 0;  background: #00a9a2; display: block;    border-radius: 10px;  overflow: hidden; }
+#sub .btn img {width: 100%; max-width: 500px;}
+/* input */
+input, select {  font-family: 'Noto Sans KR', sans-serif; background: #ecf4f4; width: 100%; height: 45px; line-height: 45px; padding:0 20px; box-sizing: border-box; font-size: 16px; font-weight: 100; border: 1px solid #ecf4f4; outline: none; border-radius: 5px;}
+
+
+/* check */
+.check {display:block; margin: 10px 0 25px}
+.check:hover {cursor: pointer}
+.check input[type=checkbox] {opacity: 0; position: absolute;width: 15px;height: 15px; }
+.check input[type=checkbox] + .tit{ position: relative; z-index: 11; display: inline-block; font-weight: bold; font-size: 16px; color: #111;padding-left: 32px;  font-weight: 400;  font-family: 'Noto Sans KR', sans-serif; }
+.check input[type=checkbox] + .tit::before{content: ''; display: inline-block; width: 25px; height: 25px; position: absolute; top: 0px; left: 0; background: url(../img/check_2.png) no-repeat center/cover;}
+.check input[type=checkbox]:checked + .tit::before{background: url(../img/check_1.png) no-repeat center/cover;}
+
+/* layer-popup */
+.layer-popup {display: block; position: fixed; width: 100%; height: 100vh; z-index: 100;  left: 0; top: 0; background: #e1fffa; overflow: auto}
+.layer-popup img {width: 100%}
+.layer-popup .top { padding:10% 26%; text-align: center; background: #fff}
+.layer-popup .top button {margin-top: 30px}
+.layer-popup .bottom {background: #e1fffa; border-top: 3px solid #00a9a2; padding: 12% 20%;}
+.layer-popup .bottom ul {display: flex; justify-content: space-between; margin-top: 17%}
+.layer-popup .bottom ul li {width: 28%;}
+
+.layer-popup.b  .top { padding:10% 17%;}
+
+
+@media screen and (max-width:360px) {  
+	.layer-popup .top {padding: 10% 29%;}
+	.layer-popup .bottom {padding: 15%; 20%}
+	.layer-popup.b  .top { padding:10% 20%;}
+	.layer-popup.b .bottom {  padding: 13% 20%;}
+}
+
