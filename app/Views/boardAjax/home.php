@@ -1,3 +1,7 @@
+<?= $this->extend('layouts/default') ?>
+
+<?= $this->section('content') ?>
+
 <head>
     
 <link rel="stylesheet" type="text/css" href="/asset/popup/css/popup.css">
@@ -32,7 +36,7 @@
 		
         <tbody>
             <tr>
-                <th>재목</th>
+                <th>제목</th>
                 <td>
                     <input type="text" name="search_title" class="form-control input-xsm"   value="" autocomplete="off">
                 </td>
@@ -258,14 +262,12 @@ dialog = $( "#dialog-form" ).dialog({
 
 
 
-
-
 function writePopup(formData) {
 	
 console.log("writePopup : " + formData);
 
         $.ajax({
-            url : "/index.php/boardAjax/write/ajaxPopup",
+            url : "/Board/Main/AjaxController/save",
             method : "POST",
 			data : formData,
 			dataType : "text",
@@ -273,13 +275,13 @@ console.log("writePopup : " + formData);
 			contentType : false,
 			processData: false,
             success :function(data) {
-
+				var obj = $.parseJSON(data);
                 console.log('성공 : ' + data);
 
-					if(data == "200") 
+					if(obj.is_valid == "1") 
 					{
 						alert("저장되었습니다.");
-						location.replace("/index.php/ajax")
+						location.replace("/ajax")
 					} 
 					else {
 						alert("오류발생");
@@ -344,7 +346,7 @@ $(document).ready(function() {
 			page = page? page : 0;
 
 		$.ajax({
-			url : "/index.php/boardAjax/home/ajaxList",
+			url : "/Board/Main/AjaxController/list",
 			type : "POST",
 			data : { search : search, page : page},
 			dataType : 'text',
@@ -380,7 +382,7 @@ $(document).ready(function() {
              row = $("<tr/>").append(
 
                 $("<td/>").html("<b>공지</b>"),
-                $("<td/>").html("<a href ='/index.php/ajax/content/"+ notice[n].idx +"'>" + notice[n].title + notice[n].new + "</a>"),
+                $("<td/>").html("<a href ='ajax/content/"+ notice[n].idx +"'>" + notice[n].title + notice[n].new + "</a>"),
                 $("<td/>").text(notice[n].name),
                 $("<td/>").text(notice[n].regdate),
                 $("<td/>").text(notice[n].cnt)
@@ -395,7 +397,7 @@ $(document).ready(function() {
 			 row = $("<tr/>").append(
 
 				$("<td/>").text(index-i),
-				$("<td/>").html("<a href ='/index.php/ajax/content/"+ json[i].idx +"'>" + json[i].title + json[i].new + "</a>"),
+				$("<td/>").html("<a href ='ajax/content/"+ json[i].idx +"'>" + json[i].title + json[i].new + "</a>"),
 				$("<td/>").text(json[i].name),
 				$("<td/>").text(json[i].regdate),
 				$("<td/>").text(json[i].cnt)
@@ -476,3 +478,6 @@ $(document).ready(function() {
 
 
 </script>
+
+
+<?= $this->endSection() ?>

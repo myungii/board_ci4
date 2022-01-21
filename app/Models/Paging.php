@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class Paging extends Model {
 
-    private static $db;
+
 
 	function __construct($arr = 0) {
 

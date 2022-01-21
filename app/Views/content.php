@@ -1,3 +1,11 @@
+<?php
+
+use App\Models\Board_model;
+?>
+<?= $this->extend('layouts/default') ?>
+
+<?= $this->section('content') ?>
+
 <!-- //subTitle -->
 <div id="title-area">HTML </div>
 <!-- Contents -->
@@ -16,23 +24,23 @@
             <tbody>
             <tr>
                 <th>제목</th>
-                <td class="textAlign" colspan="3"><?= $content->title ?></td>
+                <td class="textAlign" colspan="3"><?= $content['title'] ?></td>
             </tr>
             <tr>
                 <th>이름</th>
-                <td class="textAlign"><?= $content->name ?></td>
+                <td class="textAlign"><?= $content['name'] ?></td>
                 <th>등록일</th>
-                <td class="textAlign"><?= Board_model::setRegdate($content->regdate) ?></td>
+                <td class="textAlign"><?= Board_model::setRegdate($content['regdate']) ?></td>
             </tr>
             <tr>
                 <th>조회수</th>
-                <td class="textAlign" colspan="3"><?= $content->cnt ?></td>
+                <td class="textAlign" colspan="3"><?= $content['cnt'] ?></td>
             </tr>
             
             <tr>
                 <th>파일</th>
                 <td class="textAlign" colspan="3">
-                    <a href="/uploads/<?= $file_name ?>" download>
+                    <a href="<?=  WRITEPATH . 'uploads/' . $file_name ?>" download>
                         <?= $file_name ?>
                     </a> 
                 </td>
@@ -40,7 +48,7 @@
       
             <tr>
                 <td class="textAlign" colspan="4" style="vertical-align: text-top;height:150px;line-height:15px;padding:10 10 10 10;word-wrap:break-word;word-break:break-all">
-                    <?= $content->content ?>
+                    <?= $content['content'] ?>
                 </td>
             </tr>
 
@@ -49,9 +57,9 @@
         </table>
         
         <div class="area-button">
-            <button type="button" class="btn btn-gray btn-lg modal-close" onclick="location.href='/';">목록</button>
-            <button type="button" class="btn btn-lg btn-theme" onclick="location.replace('/index.php/edit/?id=<?=$content->idx?>')">수정</button>
-            <button type="button" class="btn btn-lg" onclick="location.replace('/index.php/delete?id=<?=$content->idx?>')">삭제</button>
+            <button type="button" class="btn btn-gray btn-lg modal-close" onclick="location.href='/board';">목록</button>
+            <button type="button" class="btn btn-lg btn-theme" onclick="location.replace('/board/write?idx=<?=$content['idx']?>')">수정</button>
+            <button type="button" class="btn btn-lg" onclick="remove_data(<?= $content['idx'] ?>);">삭제</button>
         </div>
 
     </form>
@@ -69,13 +77,13 @@
         <div id="comments-area"> <!--dap_lo -->
         <div id="comment-list">댓글목록</div>
 		<?php foreach($reply as $list) { ?>
-            <input type="hidden" id="reply-id" value="<?= $list->idx ?>">
-			<div class="comment-name" id="reply-name-<?= $list->idx ?>"><b><?= $list->name ?></b></div>
-			<span class="eachComment" id="reply-content-<?= $list->idx ?>"><?= $list->content ?> </span> <!-- dap_to_comt_edit -->
-			<div class="time" id="reply-date"><?= $list->regdate ?></div> <!-- rep_me_dap_to -->
+            <input type="hidden" id="reply-id" value="<?= $list['idx'] ?>">
+			<div class="comment-name" id="reply-name-<?= $list['idx'] ?>"><b><?= $list['name'] ?></b></div>
+			<span class="eachComment" id="reply-content-<?= $list['idx'] ?>"><?= $list['content'] ?> </span> <!-- dap_to_comt_edit -->
+			<div class="time" id="reply-date"><?= $list['regdate'] ?></div> <!-- rep_me_dap_to -->
                   <div class="comment-menu"> <!-- rep_me rep_menu -->
-                        <a class="comment-edit" id="<?= $list->idx ?>" href="#">수정 </a> <!-- dat_edit_bt -->
-                        <a class="comment-delete" id="<?= $list->idx ?>" href="#">삭제</a> <!-- dat_delete_bt -->
+                        <a class="comment-edit" id="<?= $list['idx'] ?>" href="#">수정 </a> <!-- dat_edit_bt -->
+                        <a class="comment-delete" id="<?= $list['idx'] ?>" href="#">삭제</a> <!-- dat_delete_bt -->
                   </div>
 		<?php }	?>
 	  </div>
@@ -95,4 +103,33 @@
 
 	});
 
+    
+    function remove_data(idx) {
+
+        $.ajax({
+          url             : "/Board/Main/MainController/remove",
+          data		      : { idx : idx },
+          method          : "GET", 
+          success : function(data) { 
+            var obj = $.parseJSON(data);
+            if(obj.is_valid == '1') { 
+              alert("삭제되었습니다.");
+                  location.replace('/board');
+                  return true;
+                } else {
+                  alert("오류발생.");
+                  return false;
+                }
+            }
+            , complete : function()
+            {
+                
+            }
+      }); //ajax end
+
+    }
+
 </script>
+
+
+<?= $this->endSection() ?>

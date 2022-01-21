@@ -32,7 +32,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-//$routes->get('/'                        , 'Home::index');
+
+/*
+$routes->get('/'                        , 'Home::index');
 $routes->get("ajax"                     , "boardAjax/home");
 $routes->add("ajax/content/(:num)"      , "boardAjax/home/content/$1");
 $routes->add("ajax/edit/(:num)"         , "boardAjax/edit/index/$1");
@@ -41,6 +43,7 @@ $routes->get("testcode"                 , "code/test");
 $routes->get("ajax_write"               , "boardAjax/write");
 $routes->get("plugin"                   , "plugin/home");
 $routes->get("test"                     , "home/test");
+*/
 
 /*
  * --------------------------------------------------------------------
@@ -58,7 +61,21 @@ $routes->get("test"                     , "home/test");
 
 //그룹핑
 $routes->group('board', function($routes){
-    $routes->add('/', 'Board\Main\MainController::index');
+    $routes->add('/'                    , 'Board\Main\MainController::index');
+    $routes->add('write'                , 'Board\Main\MainController::write', ['as' => 'write']);
+    $routes->add('content/(:num)'       , 'Board\Main\MainController::content/$1');
+});
+
+$routes->group('ajax', function($routes){
+    $routes->add('/'                    , 'Board\Main\AjaxController::index');
+    $routes->add('write'                , 'Board\Main\AjaxController::write', ['as' => 'write']);
+    $routes->add('content/(:num)'       , 'Board\Main\AjaxController::content/$1');
+});
+
+$routes->group('plugin', function($routes){
+    $routes->add('/'                    , 'Board\Main\PluginController::index');
+    $routes->add('write'                , 'Board\Main\PluginController::write', ['as' => 'write']);
+    $routes->add('content/(:num)'       , 'Board\Main\PluginController::content/$1');
 });
 
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

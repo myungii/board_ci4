@@ -22,6 +22,7 @@ CI_ENVIRONMENT = development
 #--------------------------------------------------------------------
 
  app.baseURL = 'http://ci4.board.com/'
+# app.baseURL = 'http://ci4.mong.or.kr/'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'

@@ -10,33 +10,82 @@ class Board_model extends Model {
 	function __construct() {
 		parent::__construct();
         
-        $this->board = new \App\Models\UserModel('board');
+        $this->board        = new \App\Models\UserModel('board');
+        $this->board_file   = new \App\Models\UserModel('board_file');
     }
 
-    //리스트 출력
+    //일반 게시판 리스트 출력
 	function get_view($start, $rowsPage, $searchText) {
-        /*
+        
+        $start      = ($start - 1) * $rowsPage;
 
-        $start            = ($start - 1) * $rowsPage;
-
-        if($searchText)
-        {
-            $query = 'SELECT * FROM board WHERE title like "%' . $searchText.'%" ORDER BY regdate DESC limit ' . $start . ',' . $rowsPage;
-
-            return $this->db->query($query)->result();
-        } else {
-            $query = 'SELECT * FROM board WHERE title like "%' . $searchText.'%" ORDER BY regdate DESC limit ' . $start . ',' . $rowsPage;
-                        
-            return $this->db->query($query)->result();                 
-        }
-        */
+        $result     = $this->board->select('*')->like('title',	$searchText)->orderBy('regdate', 'desc')->findAll($rowsPage, $start);
+        
+        return $result;
 
 	}
 
+    //ajax table 리스트 출력
+    function getViewForAjax($start, $rowsPage, $param) {
+        $start = ($start - 1) * $rowsPage;
+
+		if(is_array($param)) {
+			$whereArr   =	$this->_whereParam($param);
+
+            $result     = $this->board->where($whereArr)->orderBy('regdate', 'desc')->findAll($rowsPage, $start);
+
+		} else {
+            $result     = $this->board->select('*')->orderBy('regdate', 'desc')->findAll($rowsPage, $start);
+        }
+
+        return $result;
+    }
+
+
+    //검색 where 절
+	private function _whereParam($param) {
+
+        $whereArr	= '';
+        $where		= array();
+
+        if($param['notice'] == 'Y') {
+
+            $where[] .= 'notice = 1 ';	
+
+        } else if($param['notice'] == 'N') {
+
+            $where[] .= 'notice is null';
+
+        } 
+
+        if($param['name'])
+        {
+            $where[] .= 'name like "%' . $param['name'] . '%" ';
+        } 
+        if($param['title'])
+        {
+            $where[] .= 'title like "%' . $param['title'] . '%" ';
+        } 
+        if($param['reg_start'] && $param['reg_end'])
+        {
+            $where[] .= '(substr(regdate, 1, 10) >= "' . $param["reg_start"] .'"
+                        AND substr(regdate, 1, 10) <= "' . $param["reg_end"] .'") ';
+        } else if($param['reg_start'] && !$param['reg_end'])
+        {
+            $where[] .=  'substr(regdate, 1, 10) >= "' .  $param["reg_start"] .'"' ; 
+        } else if($param['reg_end'] && !$param['reg_start'])
+        {
+            $where[] .=   'substr(regdate, 1, 10) <= "' . $param["reg_end"] . '"'  ;
+        } 
+
+        $whereArr = implode(' AND ', $where);
+
+        return $whereArr;
+    }
+
+
     //공지 리스트 출력
     function get_noticeView() {
-        //$board = new \App\Models\UserModel('board');
-        //$query = 'SELECT * FROM board WHERE notice != 0 or notice !=null';   
 
         $result = $this->board->where('notice', 1)->findAll();
 
@@ -45,39 +94,28 @@ class Board_model extends Model {
 
     //추가
     function add($data = array()) {
-        /*
-        if($data <= 0)
-       {
-            return false;
-       }
-
-        $data['regdate']    = date("Y-m-d H:i:s");
-
-        $this->db->insert('board', $data);
-
-        if($this->db->affected_rows())
-        {
-            return true;
+        
+        if($this->board->save($data)) {
+            return (int)$this->db->insertId();    
         }
-        */
+
+        return '';
         
 	}
 
     //파일 업로드
     function fileUpload($data) {
-        /*
-        
-        if(!$data)
-        {
-            return false;
+
+        if($this->board_file->save($data)) {
+            $this->board->update($data['boardId'], [ "fileid" => (int)$this->db->insertId() ]);
+            $is_valid = '1';
         } else {
+            $is_valid = '0';
 
-            $data['regdate']    = date("Y-m-d H:i:s");
+        }
 
-			$this->db->insert('board_file', $data);
-			return true;
-		}
-        */
+        $this->_call_json($is_valid);
+ 
         
     }
 
@@ -85,148 +123,109 @@ class Board_model extends Model {
 
     //삭제
     function remove($idx) {
-        /*
+        
         if($idx)
         {
-            $this->db->where('idx', $idx);
-            $this->db->delete('board');
+            $this->board->delete($idx);
 
-            if($this->db->affected_rows() > 0)
-            {
-                return true;
-            } 
-            
+            $is_valid = '1';
+
+        } else {
+            $is_valid = '0';
         }
+        
+        $this->_call_json($is_valid);
 
-        return false;
-        */
 	}
 
     //한 건 출력
-    function load($idx) {
-        /*
-
+    function load($idx, $mode) {
+        
         if(!$idx) {
             return false;
         }
 
         //조회수 추가
-        $this->_increaseCnt($idx);
-
+        if($mode !== 'edit') {
+            $this->_increaseCnt($idx);
+        }
+       
+        /*
         $query      = "SELECT * FROM board WHERE idx = ". $idx;
         $rowData    = $this->db->query($query)->row();
 
         return $rowData;
         */
+
+        return $this->board->find($idx);
         
     }
 
 	//파일 한 건 출력
-    function fileLoad($boardId) {
-        /*
-        if(!$boardId) {
+    function fileLoad($id) {
+        
+        if(!$id) {
             return "";
         }
 
+        /*
         $query      = "SELECT * FROM board_file WHERE boardId = ". $boardId;
         $rowData    = $this->db->query($query)->row();
 
         return $rowData;
         */
+        else {
+            //$result =  $this->board_file->where('boardId', $boardId)->first();
+            $result =  $this->board_file->find($id);
+
+            if( isset($result) ) {
+                return $result;
+            } else {
+                return "";
+            }
+        }
         
     }
 
     //파일 삭제
     function fileDelete($idx) {
-        /*
+
         if($idx)
         {
-            $this->db->where('idx', $idx);
-            $this->db->delete('board_file');
-
-            if($this->db->affected_rows() > 0)
-            {
-                return true;
-            } 
-            
-        }
-
-        return false;
-        */
-	}
-
-
-
-    //파일수정
-    function fileModify($data = array()) {
-
-        /*
-        $dataArr    = array();
-        $where      = array (
-                        "idx"       => $data['idx']
-                    );
-
-        if(!$data['idx'])
-        {
-			$id_valid = '0';
-        } else {
-
-            $dataArr['fileName']            = $data['fileName'];
-            $dataArr['fileSize']            = $data['fileSize'];
-            $dataArr['filePath']            = $data['filePath'];
-            $dataArr['fileType']            = $data['fileType'];
-            $dataArr['regdate']             = date("Y-m-d H:i:s");
-            $dataArr['fullFilePath']        = $data['fullFilePath'];
-
-            $result = $this->db->update('board_file', $dataArr, $where);
-			$is_valid = '1';
-
-        }
-		$this->_call_json($is_valid);
-        */
-
-    }
-    
-
-
-    private function _increaseCnt($idx) {
-        /*
-        if(!$idx)
-        {
-            return false;
-        }
-
-        $this->db   ->set('cnt', 'cnt+1', FALSE)
-                    ->where('idx', $idx)
-                    ->update('board');
-        
-        if($this->db->affected_rows() > 0)
-        {
+            $this->board_file->delete($idx);
             return true;
         } 
 
         return false;
-        */
+
+	}
+    
+
+    private function _increaseCnt($idx) {
+
+        if( $this->board->set('cnt', 'cnt+1', FALSE)->where('idx', $idx)->update() ) {
+            return true;
+        }
+
+        return false;
+        
     }
 
     //수정
     function modify($data = array()) {
-        /*
+        
         $dataArr    = array();
-        $where      = array (
-                        "idx" => $data['idx']
-        );
 
-            $dataArr['name']         = $data['name'];
-            $dataArr['title']        = $data['title'];
-            $dataArr['content']      = $data['content'];
-            $dataArr['notice']       = $data['notice'];
-            $dataArr['regdate']      = date("Y-m-d H:i:s");
+        $dataArr['name']         = $data['name'];
+        $dataArr['title']        = $data['title'];
+        $dataArr['content']      = $data['content'];
+        $dataArr['notice']       = $data['notice'];
+        $dataArr['regdate']      = date("Y-m-d H:i:s");
 
-           if($this->db->update('board', $dataArr, $where)) return TRUE ;
-           return FALSE;
-        */
-    
+        if($this->board->update($data['idx'], $dataArr)) return TRUE ;
+        return FALSE;
+        
+
     }
 
     //등록일 포맷 변경
@@ -245,10 +244,6 @@ class Board_model extends Model {
     static function displayNew($regdate='')
     {
         //하루 단위
-        //$time		= strtotime($regdate);
-		//$today		= time();
-		//$result = (($today - $time)/60/60/24)*10;
-
 		$time = substr($regdate,0, 10);
 		$today = date("Y-m-d");
 
@@ -264,9 +259,12 @@ class Board_model extends Model {
     //lnb 목록 새글 갯수 표시
     static function newCnt() 
     {
-        //$query = 'SELECT count(idx) AS cnt FROM board WHERE substr(regdate, 1, 10) = substr(now(), 1, 10)';
+        $board = new \App\Models\UserModel('board');
 
-        //return self::$db->query($query)->row('cnt');
+        $where = ' substr(regdate, 1, 10) = substr(now(), 1, 10) ';
+
+        return $board->where($where)->countAllResults();
+        
     }
 
 
@@ -276,6 +274,22 @@ class Board_model extends Model {
         //$query = 'SELECT count(*) as cnt FROM board WHERE title like "%' . $searchText.'%" ';
         
         //return $this->db->query($query)->row('cnt');
+
+        $result = $this->board->select('*')->like('title',	$searchText)->countAllResults();
+
+        return $result;
+
+    }
+
+    function getTotalForAjax($param) {
+
+        if(is_array($param)) {
+			$whereArr   =	$this->_whereParam($param);
+            $result     = $this->board->where($whereArr)->countAllResults();
+        } else {
+            $result     = $this->board->countAllResults();
+        }
+        return $result;
     }
 
     //총 페이지 개수

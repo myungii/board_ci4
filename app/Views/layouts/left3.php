@@ -2,7 +2,7 @@
 <ul class="sideList">
     <li><a href="#" class="one">목록</a>
         <ul class="inner">
-            <li><a href="/"  class="">일반 게시판
+            <li><a href="/board"  class="">일반 게시판
                   <?php 
                     use App\Models\Board_model;
                     if(Board_model::newCnt() > 0) { ?>

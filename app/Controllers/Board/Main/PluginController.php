@@ -5,7 +5,7 @@ use App\Models\Board_model;
 use App\Models\Paging;
 use App\Models\Reply_model;
 
-class MainController extends \CodeIgniter\Controller
+class PluginController extends \CodeIgniter\Controller
 {
 	
 	public function index()
@@ -58,27 +58,28 @@ class MainController extends \CodeIgniter\Controller
 					]);
 	} //index end
 
-	//글쓰기 및 수정
+
 	public function write() {
 
 		$mode = isset($_GET['idx']) ? 'edit' : 'write';
 
 		$board 		= new Board_model();
+		$content 	= $board->load( $_GET['idx'], $mode );
 
 		if($mode === 'edit') {
-			$content 	= $board->load( $_GET['idx'], $mode );
-	
 			return view('write', [ 'content' => $content ,
-								   'file'	 => isset( $content['fileid'] ) ? $board->fileLoad( $content['fileid'] ) : ''
+								   'file'	 => isset( $content['fileId'] ) ? $board->fileLoad( $_GET['idx'] ) : ''
 								] );
 		}
 
 		return view('write');
 	} //write end
 
-	//저장 및 수정
+
 	public function save() {
 
+		//저장
+		
 		$param_arr = array(
 			'name' 		=> $_POST["name"],
 			'title'		=> $_POST["title"],
@@ -88,71 +89,50 @@ class MainController extends \CodeIgniter\Controller
 				
 		$board 			= new Board_model();
 		
-		if( $_POST["idx"] ) { //수정
-
+		if($_POST["idx"]) { //수정
 				$param_arr['idx'] = $_POST["idx"];
 				$board->modify($param_arr);
 
-				if( $_POST["file_idx"] ){
-					$fileIdx 	= $this->_removeFile($_POST["file_idx"]); //서버 삭제
-					$board->fileDelete($_POST["file_idx"]); //DB 삭제
-				
-				}
+				$fileIdx 	= $this->_removeFile($_POST["idx"]);
+				$board->fileDelete($fileIdx);
 
 				$fileUpload = $this->_upload($_POST["idx"]);
 
-				if(!empty($fileUpload)) {
-					$file_arr = [
-						'boardId' 		=> $_POST["idx"],
-						'fileName' 		=> $fileUpload['fileName'],
-						'fileSize'		=> intval($fileUpload['fileSize']),
-						'filePath'		=> $fileUpload['filePath'],
-						'fileType'		=> $fileUpload['fileType'],
-						'regdate'		=> date("Y-m-d H:i:s"),
-						'fullFilePath'	=> $fileUpload['fullFilePath']
-					];
-	
-					$board->fileUpload($file_arr);
-				} else { //파일등록 없이 수정할 때 success 사인
-					$json 			  = null;
-					$json['is_valid'] = '1';
-	
-					echo json_encode($json);
-				}
-				
-		} else { //저장
+				$file_arr = [
+					'boardId' 		=> $fileUpload['boardId'],
+					'fileName' 		=> $fileUpload['fileName'],
+					'fileSize'		=> intval($fileUpload['fileSize']),
+					'filePath'		=> $fileUpload['filePath'],
+					'fileType'		=> $fileUpload['fileType'],
+					'regdate'		=> date("Y-m-d H:i:s"),
+					'fullFilePath'	=> $fileUpload['fullFilePath']
+				];
 
+				$board->fileUpload($file_arr);
+
+
+		} else { //저장
 			$insertId = $board->add($param_arr);
 			
 			$fileUpload = $this->_upload($insertId);
 
-			if(!empty($fileUpload)) {
-				$file_arr = [
-								'boardId' 		=> $fileUpload['boardId'],
-								'fileName' 		=> $fileUpload['fileName'],
-								'fileSize'		=> intval($fileUpload['fileSize']),
-								'filePath'		=> $fileUpload['filePath'],
-								'fileType'		=> $fileUpload['fileType'],
-								'regdate'		=> date("Y-m-d H:i:s"),
-								'fullFilePath'	=> $fileUpload['fullFilePath']
-							];
-			
-				$board->fileUpload($file_arr);
-
-			} else { //파일등록 없이 저장할 때 success 사인
-
-				$json 			  = null;
-				$json['is_valid'] = '1';
-
-				echo json_encode($json);
-			}
+			$file_arr = [
+							'boardId' 		=> $fileUpload['boardId'],
+							'fileName' 		=> $fileUpload['fileName'],
+							'fileSize'		=> intval($fileUpload['fileSize']),
+							'filePath'		=> $fileUpload['filePath'],
+							'fileType'		=> $fileUpload['fileType'],
+							'regdate'		=> date("Y-m-d H:i:s"),
+							'fullFilePath'	=> $fileUpload['fullFilePath']
+						];
+		
+			$board->fileUpload($file_arr);
 		    
 		}
 
 
 	} //save end
 
-    //업로드
 	public function _upload($boardId) {
 
 		$file = $this->request->getFile("upload_file");
@@ -172,13 +152,12 @@ class MainController extends \CodeIgniter\Controller
 				if ($file->hasMoved() === false) {               
 					$fileInfo['fileType'] 		= $file->getMimeType(); 
 	
-					//$savedPath 					= $file->store(); 
 					$savedPath 					= $file->store(); 
 	
 					$fileInfo['boardId']		= $boardId;
 					$fileInfo['filePath'] 		= $savedPath;
 					$fileInfo['fileName'] 		= $file->getClientName(); 
-					$fileInfo['fileSize']	 	= $file->getSizeByUnit('kb'); //mb
+					$fileInfo['fileSize']	 	= $file->getSize();
 					$fileInfo['fullFilePath'] 	= $fileInfo['filePath'];
 					//$fileInfo['fileName'] = $file->getName(); 
 					//$fileInfo['clientMimeType'] = $file->getClientMimeType(); 
@@ -191,26 +170,25 @@ class MainController extends \CodeIgniter\Controller
 		return $fileInfo;
 	}
 
-	//업로드 파일 삭제
-	public function _removeFile($id) {
+	public function _removeFile($boardid) {
 
 		$board 			= new Board_model();
 
-		if($id) {
-
-			$fileInfo 	= $board->fileLoad($id);
+		if($boardid) {
+			//에러남(수정 버튼 클릭시)
+			$fileInfo 	= $board->fileLoad($boardid);
 			$filePath 	= $fileInfo['filePath'];
-			
-			if(file_exists(WRITEPATH . 'uploads/' . $filePath) == TRUE) {
-				unlink(WRITEPATH . 'uploads/' . $filePath);	
-			}
 
+			if(is_file(WRITEPATH . $filePath) == TRUE) {
+				unlink(WRITEPATH . $filePath);
+
+				
+			}
 		}
 		return $fileInfo['idx'];
 	}
 
 
-	//상세보기
 	function content($num) {
 		$id = $num;
 
@@ -224,7 +202,7 @@ class MainController extends \CodeIgniter\Controller
 			
 		} else {
 			
-			$fileInfo 	= $board->fileLoad($content['fileid']);
+			$fileInfo 	= $board->fileLoad($id);
 			$file_name	= $fileInfo['fileName'];
 			$file_idx	= $fileInfo['idx'];
 			$filePath	= $fileInfo['filePath'];
@@ -244,7 +222,6 @@ class MainController extends \CodeIgniter\Controller
 					]);
 	}
 
-	//삭제
 	function remove() {
 		$idx 		= $_GET['idx'];
 

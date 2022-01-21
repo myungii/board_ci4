@@ -6,13 +6,13 @@
     <title></title>
     <!--link rel="icon" href="/favicon.ico" sizes="72x72"-->
         <!--css-->
-        <script src="asset/adminsin/js/jquery-1.11.1.min.js"></script>
-    <script src="asset/adminsin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+        <script src="/asset/adminsin/js/jquery-1.11.1.min.js"></script>
+    <script src="/asset/adminsin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="asset/adminsin/css/main.css">
-    <link href="asset/adminsin/css/style.min.css" rel="stylesheet" media="screen">
-    <link href="asset/adminsin/css/layout2.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="asset/adminsin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/asset/adminsin/css/main.css">
+    <link href="/asset/adminsin/css/style.min.css" rel="stylesheet" media="screen">
+    <link href="/asset/adminsin/css/layout2.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/asset/adminsin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/asset/adminsin/css/validationEngine.jquery.css" />
     <link rel="stylesheet" type="text/css" href="/asset/adminsin/css/default.css" />
     <link rel="stylesheet" type="text/css" href="/asset/adminsin/css/font-awesome.min.css" />

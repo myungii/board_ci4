@@ -5,65 +5,149 @@ use App\Models\Board_model;
 use App\Models\Paging;
 use App\Models\Reply_model;
 
-class MainController extends \CodeIgniter\Controller
+class AjaxController extends \CodeIgniter\Controller
 {
 	
 	public function index()
 	{
 
-		//검색
-		$searchText 		= isset($_GET['filter_name']) ? trim($_GET['filter_name']) : '';
+		return view('boardAjax/home');
+	} //index end
 
-		//페이지 시작 변수
-		$page 				= isset($_GET['page']) ? trim($_GET['page']) : 1;
+	public function list() {
+
+		//검색
+		$query = isset( $_POST['search'] ) ? $_POST['search'] : '';
 
 		//현재 페이지
-		$curPage			= isset($_GET['p']) ? $_GET['p'] : 1;
+		$curPage = ( $_POST['page'] > 0 ) ? trim( $_POST['page'] ) : 1;
 
-		$url 				= preg_replace('/(\/index\.php)/i', '', $_SERVER['PHP_SELF']);
-		$link_url			= $_SERVER['QUERY_STRING'];
-
+		$url		= $_SERVER['PHP_SELF'];
+		$link_url	= $_SERVER['QUERY_STRING'];
 
 		//표시되는 페이지 수
-		$rowsPage 			= 10;
+		$rowsPage	= 10;
 
-		$board 			= new Board_model();
-		$notice 		= $board->get_noticeView();
-		$list 			= $board->get_view($curPage, $rowsPage, $searchText);
-		$total			= $board->getTotal($searchText);
+		//리스트 출력
+		$board = new Board_model();
+		$data = $board->getViewForAjax($curPage, $rowsPage, $query);
 
-		$paging			= new Paging();
-		$totalPage 		= $paging->totalPage($total, $rowsPage);
-		
+		//공지글
+		$noticeView = $board->get_noticeView();
 
-		$arr = array(
-			'url' 		=> $url,
-			'total'		=> $total,
-			'rowsPage'	=> $rowsPage,
-			'curPage'	=> $curPage,
-			'link_url'	=> $link_url,
-			'isAjax'    => 0
+		$list = array();
+
+		foreach($data as $li)
+		{
+
+			if($li['fileid'] == null)
+			{
+				$li['filed'] = "";
+			}
+
+			if($li['notice'] == null)
+			{	
+				$li['notice'] = "";
+			}
+
+			if($li['modidate'] == null)
+			{
+				$li['modidate'] = "";
+			}
+
+			$row = array (
+				"idx"			=> $li['idx'],
+				"title"			=> $li['title'],
+				"name"			=> $li['name'],
+				"content"		=> $li['content'],
+				"cnt"			=> $li['cnt'],
+				"regdate"		=> Board_model::setRegdate( $li['regdate'] ),
+				"fileid"		=> $li['fileid'],
+				"notice"		=> $li['notice'],
+				"modidate"		=> $li['modidate'],
+				"new"			=> Board_model::displayNew( $li['regdate'] )
+			);
+
+			$list[] = $row;
+
+		}
+
+		foreach($noticeView as $li)
+		{
+			if($li['fileid'] == null)
+			{
+				$li['filed'] = "";
+			}
+
+			if($li['notice'] == null)
+			{	
+				$li['notice'] = "";
+			}
+
+			if($li['modidate'] == null)
+			{
+				$li['modidate'] = "";
+			}
+
+			$row = array (
+				"idx"			=> $li['idx'],
+				"title"			=> $li['title'],
+				"name"			=> $li['name'],
+				"content"		=> $li['content'],
+				"cnt"			=> $li['cnt'],
+				"regdate"		=> Board_model::setRegdate($li['regdate']),
+				"fileid"		=> $li['fileid'],
+				"notice"		=> $li['notice'],
+				"modidate"		=> $li['modidate'],
+				"new"			=> Board_model::displayNew($li['regdate'])
+			);
+
+			$notce_list[] = $row;
+
+		}
+
+		//레코드 갯수 출력
+		$total 	   = $board->getTotalForAjax($query);
+
+		//페이징
+		$pagingArr = array(
+					"url"		=> $url,
+					"total"		=> $total,
+					"rowsPage"	=> $rowsPage,
+					"curPage"	=> $curPage,
+					"link_url"	=> $link_url,
+					"isAjax"    => 1
 
 		);
 
-		return view('home', [
-							  'noticeList' 	=> $notice,
-							  'boardList'	=> $list,
-							  'curPage'		=> $curPage,
-							  'total'		=> $total,
-							  'rowsPage'	=> $rowsPage,
-							  'link_url'	=> $link_url,
-							  'searchText'	=> $searchText,
-							  'pagingArr'	=> $paging->pageView($arr)
-					]);
-	} //index end
+		$page 	   = new Paging();
+		$paging    = $page->pageView($pagingArr);
 
-	//글쓰기 및 수정
+		$result = array( "list"			=> $list, 
+						 "notce_list"   => $notce_list,
+						 "total"		=> $total,
+						 "current_block"=> $paging['current_block'],
+						 "current"		=> $paging['current'],
+						 "total_block"  => $paging['total_block'],
+						 "prev"  		=> $paging['prev'],
+						 "next"  		=> $paging['next'],
+						 "totalPage"  	=> $paging['totalPage'],
+						 "pagingArr"	=> $pagingArr,
+						 "rowsPage"		=> $rowsPage,
+						 "page"			=> $curPage);
+
+		$this->display($result);
+
+
+	} //list end
+
+
 	public function write() {
 
 		$mode = isset($_GET['idx']) ? 'edit' : 'write';
 
 		$board 		= new Board_model();
+		$content 	= $board->load( $_GET['idx'], $mode );
 
 		if($mode === 'edit') {
 			$content 	= $board->load( $_GET['idx'], $mode );
@@ -75,6 +159,7 @@ class MainController extends \CodeIgniter\Controller
 
 		return view('write');
 	} //write end
+
 
 	//저장 및 수정
 	public function save() {
@@ -88,7 +173,7 @@ class MainController extends \CodeIgniter\Controller
 				
 		$board 			= new Board_model();
 		
-		if( $_POST["idx"] ) { //수정
+		if( isset( $_POST["idx"] ) ) { //수정
 
 				$param_arr['idx'] = $_POST["idx"];
 				$board->modify($param_arr);
@@ -152,7 +237,6 @@ class MainController extends \CodeIgniter\Controller
 
 	} //save end
 
-    //업로드
 	public function _upload($boardId) {
 
 		$file = $this->request->getFile("upload_file");
@@ -172,13 +256,12 @@ class MainController extends \CodeIgniter\Controller
 				if ($file->hasMoved() === false) {               
 					$fileInfo['fileType'] 		= $file->getMimeType(); 
 	
-					//$savedPath 					= $file->store(); 
 					$savedPath 					= $file->store(); 
 	
 					$fileInfo['boardId']		= $boardId;
 					$fileInfo['filePath'] 		= $savedPath;
 					$fileInfo['fileName'] 		= $file->getClientName(); 
-					$fileInfo['fileSize']	 	= $file->getSizeByUnit('kb'); //mb
+					$fileInfo['fileSize']	 	= $file->getSizeByUnit('kb'); //kb
 					$fileInfo['fullFilePath'] 	= $fileInfo['filePath'];
 					//$fileInfo['fileName'] = $file->getName(); 
 					//$fileInfo['clientMimeType'] = $file->getClientMimeType(); 
@@ -191,7 +274,6 @@ class MainController extends \CodeIgniter\Controller
 		return $fileInfo;
 	}
 
-	//업로드 파일 삭제
 	public function _removeFile($id) {
 
 		$board 			= new Board_model();
@@ -207,10 +289,10 @@ class MainController extends \CodeIgniter\Controller
 
 		}
 		return $fileInfo['idx'];
+
 	}
 
 
-	//상세보기
 	function content($num) {
 		$id = $num;
 
@@ -233,7 +315,7 @@ class MainController extends \CodeIgniter\Controller
 		
 		$reply 		= new Reply_model();
 
-		return view('content', [
+		return view('boardAjax/content', [
 								'pid'		=> $id,
 								'reply'		=> $reply->get_view($id),
 								'total'		=> $reply->getTotal($id),
@@ -244,13 +326,24 @@ class MainController extends \CodeIgniter\Controller
 					]);
 	}
 
-	//삭제
 	function remove() {
 		$idx 		= $_GET['idx'];
 
 		$board = new Board_model();
 		$board->remove($idx);
 	}
+
+
+	/*********************
+	* @title 공용 출력
+	* @param $data json
+	* @return json
+	**********************/
+	public function display($data)/*{{{*/
+	{
+		echo json_encode($data, JSON_UNESCAPED_UNICODE);
+		exit;
+	}/*}}}*/
 
 
 }

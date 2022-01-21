@@ -24,6 +24,7 @@ class App extends BaseConfig
      * @var string
      */
     public $baseURL = 'http://ci4.board.com/';
+   // public $baseURL = 'http://ci4.mong.or.kr/';
 
     /**
      * --------------------------------------------------------------------------

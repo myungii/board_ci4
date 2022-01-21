@@ -18,7 +18,7 @@ function showComment(currentVal, nameVal, pid) {
 
         
     $.ajax({
-        url      : "/index.php/reply/save",
+        url      : "/Board/Main/ReplyController/save",
         data		    : { dataObj : dataObj },
         method          : "post",
         cache           : false,
@@ -27,7 +27,7 @@ function showComment(currentVal, nameVal, pid) {
 
         if(data == '200') { 
             alert("등록되었습니다.");
-                location.replace('/index.php/content?id='+pid);
+                location.replace(pid);
 
                 return true;
 
@@ -111,7 +111,7 @@ function showComment(currentVal, nameVal, pid) {
                         else {
 
                             $.ajax({
-                                url             : "/index.php/reply/modify",
+                                url             : "/Board/Main/ReplyController/modify",
                                 data		    : {
                                                     replyId     : replyId,
                                                     name        : name_form,
@@ -125,7 +125,7 @@ function showComment(currentVal, nameVal, pid) {
                                             alert("수정되었습니다.");
                                             $("#editSubmit").hide();
                                             $("#submit").show();
-                                            location.replace('/index.php/content?id='+ pid);
+                                            location.replace(pid);
 
                                         } else {
                                             alert("오류발생.");
@@ -159,7 +159,7 @@ function showComment(currentVal, nameVal, pid) {
 			const replyId   = $(this).attr('id');
 			
 			$.ajax({
-				url             : "/index.php/reply/delete",
+				url             : "/Board/Main/ReplyController/delete",
 				data		    : {replyId : replyId},
 				method          : "GET",
 				success : function(r) { 
@@ -168,7 +168,7 @@ function showComment(currentVal, nameVal, pid) {
 
 					if(obj.is_valid == "1") { 
 						alert("삭제되었습니다.");
-						location.replace('/index.php/content?id='+ pid);
+						location.replace(pid);
 						
 					} else {
 						alert("오류발생.");
