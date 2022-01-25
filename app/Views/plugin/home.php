@@ -1,3 +1,7 @@
+<?= $this->extend('layouts/default') ?>
+
+<?= $this->section('content') ?>
+
 <!-- datatables js/css -->
 <link href='/asset/adminsin/js/datatables/DataTables-1.10.20/css/jquery.dataTables.css' rel='stylesheet' type='text/css'>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -350,7 +354,7 @@ $(function() {
 					    	}
 			return $.ajax({
 
-				url: "/plugin/home/pluginList",
+				url: "/Board/Main/PluginController/list",
 				type: "POST",
 				data: params,
 				dataType: "json",
@@ -398,3 +402,5 @@ $(function() {
 
 
 </script>
+
+<?= $this->endSection() ?>

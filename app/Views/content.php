@@ -40,7 +40,7 @@ use App\Models\Board_model;
             <tr>
                 <th>파일</th>
                 <td class="textAlign" colspan="3">
-                    <a href="<?=  WRITEPATH . 'uploads/' . $file_name ?>" download>
+                    <a href="<?=  '/uploads/' . $filePath  ?>" download>
                         <?= $file_name ?>
                     </a> 
                 </td>

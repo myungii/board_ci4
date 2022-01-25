@@ -78,6 +78,10 @@ $routes->group('plugin', function($routes){
     $routes->add('content/(:num)'       , 'Board\Main\PluginController::content/$1');
 });
 
+$routes->group('quiz', function($routes){
+    $routes->add('/'                    , 'Quiz\Main\QuizController::index');
+});
+
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

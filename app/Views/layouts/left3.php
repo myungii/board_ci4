@@ -29,6 +29,9 @@
                   <?php } ?> 
             </a></li>
 
+            <li><a href="/quiz"  class="">QUIZ
+            </a></li>
+
         </ul>
     </li>
 </ul>

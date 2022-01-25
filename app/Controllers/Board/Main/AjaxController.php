@@ -257,6 +257,7 @@ class AjaxController extends \CodeIgniter\Controller
 					$fileInfo['fileType'] 		= $file->getMimeType(); 
 	
 					$savedPath 					= $file->store(); 
+					//$savedPath 					= $file->move(); 
 	
 					$fileInfo['boardId']		= $boardId;
 					$fileInfo['filePath'] 		= $savedPath;

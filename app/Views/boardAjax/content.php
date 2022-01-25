@@ -41,7 +41,7 @@ use App\Models\Board_model;
             <tr>
                 <th>파일</th>
                 <td class="textAlign" colspan="3">
-                    <a id="dfile" href="<?= WRITEPATH . 'uploads/' . $file_name ?>" download>
+                    <a id="dfile" href="<?= '/uploads/' . $filePath ?>" download>
                         <?= $file_name ?>
                     </a> 
                 </td>

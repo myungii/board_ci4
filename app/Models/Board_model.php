@@ -41,6 +41,22 @@ class Board_model extends Model {
         return $result;
     }
 
+     //plugin table 리스트 출력
+    function getViewForPlugin($start, $rowsPage, $param) {
+        $start = ($start - 1) * $rowsPage;
+
+		if(is_array($param)) {
+			$whereArr   =	$this->_whereParam($param);
+
+            $result     = $this->board->where($whereArr)->orderBy('notice DESC', 'regdate DESC')->findAll($rowsPage, $start);
+
+		} else {
+            $result     = $this->board->select('*')->orderBy('notice DESC', 'regdate DESC')->findAll($rowsPage, $start);
+        }
+
+        return $result;
+    }
+
 
     //검색 where 절
 	private function _whereParam($param) {
